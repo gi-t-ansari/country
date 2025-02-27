@@ -40,8 +40,8 @@ function Countries() {
   return (
     <div style={containerStyle}>
       {countries.map((country) => (
-        <div key={country.cca3} style={cardStyle}>
-          <img src={country.flag} alt="" style={country.abbr} />
+        <div key={country.abbr} style={cardStyle}>
+          <img src={country.flag} alt={country.abbr} style={imageStyle} />
           <h2>{country.name}</h2>
         </div>
       ))}
