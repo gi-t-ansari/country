@@ -24,12 +24,25 @@ const imageStyle = {
   height: "100px"
 };
 
+const inputContainer = {
+  display: "flex",
+  justifyContent: "center",
+  padding: "10px 20px"
+};
+
+const inputStyle = {
+  padding: "10px 5px",
+  width: "300px",
+  border: "1px solid #000",
+  borderRadius: "7px"
+};
+
 function Countries() {
   const [countries, setCountries] = useState([]);
+  const [searchedCountry, setSearchedCountry] = useState("");
 
   useEffect(() => {
-    // async function fetchAPI() {}
-    fetch("https://xcountries-backend.azurewebsites.net/all")
+    fetch("https://countries-search-data-prod-812920491762.asia-south1.run.app/countries")
       .then((response) => response.json())
       .then((data) => {
         setCountries(data);
@@ -37,14 +50,33 @@ function Countries() {
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
+
+  const getCountryName = (e) => {
+    setSearchedCountry(e.target.value);
+  };
+
+  const filteredCountries = countries.filter((country) =>
+    country.common.toLowerCase().includes(searchedCountry.toLowerCase())
+  );
+
   return (
-    <div style={containerStyle}>
-      {countries.map((country) => (
-        <div key={country.abbr} style={cardStyle}>
-          <img src={country.flag} alt={country.abbr} style={imageStyle} />
-          <h2>{country.name}</h2>
-        </div>
-      ))}
+    <div>
+      <div style={inputContainer}>
+        <input
+          type="text"
+          placeholder="Search for Countries"
+          style={inputStyle}
+          onChange={getCountryName}
+        />
+      </div>
+      <div style={containerStyle}>
+        {filteredCountries.map((country) => (
+          <div key={country.common} style={cardStyle} className="countryCard">
+            <img src={country.png} alt={country.common} style={imageStyle} />
+            <h2>{country.common}</h2>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
