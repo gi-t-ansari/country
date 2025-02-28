@@ -55,9 +55,12 @@ function Countries() {
     setSearchedCountry(e.target.value);
   };
 
-  const filteredCountries = countries.filter((country) =>
-    country.common.toLowerCase().includes(searchedCountry.toLowerCase())
-  );
+  const filteredCountries = searchedCountry
+  ? countries.filter((country) =>
+      country.common.toLowerCase().includes(searchedCountry.toLowerCase())
+    )
+  : countries;
+
 
   return (
     <div>
