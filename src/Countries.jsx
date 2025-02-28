@@ -40,16 +40,22 @@ const inputStyle = {
 function Countries() {
   const [countries, setCountries] = useState([]);
   const [searchedCountry, setSearchedCountry] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch("https://countries-search-data-prod-812920491762.asia-south1.run.app/countries")
-      .then((response) => response.json())
-      .then((data) => {
-        setCountries(data);
-        console.log(data);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+useEffect(() => {
+  fetch("https://countries-search-data-prod-812920491762.asia-south1.run.app/countries")
+    .then((response) => response.json())
+    .then((data) => {
+      setCountries(data);
+      setLoading(false);  // Set loading to false after fetching data
+      console.log("Fetched Data:", data);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    });
+}, []);
+
 
   const getCountryName = (e) => {
     setSearchedCountry(e.target.value);
