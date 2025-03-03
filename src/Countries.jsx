@@ -6,7 +6,9 @@ function Countries() {
   const [filteredCountries, setFilteredCountries] = useState([]);
 
   useEffect(() => {
-    fetch("https://countries-search-data-prod-812920491762.asia-south1.run.app/countries")
+    fetch(
+      "https://countries-search-data-prod-812920491762.asia-south1.run.app/countries"
+    )
       .then((response) => response.json())
       .then((data) => {
         setCountries(data);
@@ -20,7 +22,9 @@ function Countries() {
       setFilteredCountries(countries); // Reset to full list when input is cleared
     } else {
       const filtered = countries.filter((country) =>
-        country.common.toLowerCase().includes(searchedCountry.trim().toLowerCase())
+        country.common
+          .toLowerCase()
+          .includes(searchedCountry.trim().toLowerCase())
       );
       setFilteredCountries(filtered);
     }
@@ -29,7 +33,13 @@ function Countries() {
   return (
     <div>
       {/* Search Input */}
-      <div style={{ display: "flex", justifyContent: "center", padding: "10px 20px" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          padding: "10px 20px",
+        }}
+      >
         <input
           type="text"
           placeholder="Search for Countries"
@@ -46,22 +56,32 @@ function Countries() {
       </div>
 
       {/* Display Countries */}
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+      <div
+        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+      >
         {filteredCountries.map((country) => (
-          <div key={country.common} className="countryCard" style={{ 
-            width: "200px", 
-            borderRadius: "10px",
-            margin: "10px",
-            padding: "10px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            boxShadow: "2.5px 2.5px 5px slategray",
-            backgroundColor: "#64748b",
-            color: "#fff"
-          }}>
-            <img src={country.png} alt={country.common} style={{ width: "150px", height: "100px" }} />
+          <div
+            key={country.common}
+            className="country-card"
+            style={{
+              width: "200px",
+              borderRadius: "10px",
+              margin: "10px",
+              padding: "10px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: "2.5px 2.5px 5px slategray",
+              backgroundColor: "#64748b",
+              color: "#fff",
+            }}
+          >
+            <img
+              src={country.png}
+              alt={country.common}
+              style={{ width: "150px", height: "100px" }}
+            />
             <h2>{country.common}</h2>
           </div>
         ))}
