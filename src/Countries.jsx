@@ -62,7 +62,7 @@ function Countries() {
         {filteredCountries.map((country) => (
           <div
             key={country.common}
-            className="country-card"
+            className="countryCard"
             style={{
               width: "200px",
               borderRadius: "10px",
